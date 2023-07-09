@@ -93,7 +93,7 @@ const ListRider = () => {
     <React.Fragment>
       <NavBar />
       <section>
-        <div className="rider-search p-3">
+        <div className="rider-search p-3 header">
           <div className="rider">
             <div className="grid">
               <div className="row">
@@ -166,14 +166,14 @@ const ListRider = () => {
                             <div className="col-md-7 mt-4">
                               <ul className="list-group">
                                 <li className="list-group-item list-group-item-action">
-                                  Id: <span className="fw-bold">{rider.id}</span>
-                                </li>
-                                <li className="list-group-item list-group-item-action">
                                   Name: <span className="fw-bold">{rider.name}</span>
                                 </li>
                                 <li className="list-group-item list-group-item-action">
                                   Email: <span className="fw-bold">{rider.email}</span>
                                 </li>
+                                <li className="list-group-item list-group-item-action">
+                                    Position: <span className="fw-bold">{rider?.Position}</span>
+                                 </li>
                               </ul>
                             </div>
                             <div className="col-md-1 d-flex flex-column align-items-center">

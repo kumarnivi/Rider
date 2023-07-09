@@ -25,8 +25,9 @@ static getRider(riderId) {
     return axios.put(dataURL, add);
 
   }
+  //Delete Rider
   static deleteRider(riderId) {
-    const dataURL = `${this.serverURL}/Rider/${riderId}`; // Replace "/api/riders" with the appropriate endpoint URL
+    const dataURL = `${this.serverURL}/Rider/${riderId}`; 
     return axios.delete(dataURL);
   }
 }

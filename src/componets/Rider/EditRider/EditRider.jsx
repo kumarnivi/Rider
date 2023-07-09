@@ -75,7 +75,6 @@ const EditRider = () => {
     return (
         <React.Fragment>
             <NavBar />
-            {/* <pre>{JSON.stringify(rider)}</pre> */}
             <section className="add-rider p-3">
                 <div className="container">
                     <div className="row">
