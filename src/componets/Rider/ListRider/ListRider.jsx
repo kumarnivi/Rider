@@ -1,3 +1,6 @@
+
+// export default ListRider;
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../../navbar/NavBar';
@@ -14,7 +17,8 @@ const ListRider = () => {
   });
 
   const [query, setQuery] = useState({
-    text: '',
+    status: '',
+    active: 'all', // Added active filter option
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,18 +72,34 @@ const ListRider = () => {
     }
   };
 
-  const searchRider = (event) => {
+    const searchRider = (event) => {
     const { riders } = state;
     const searchText = event.target.value.toLowerCase();
+    const activeFilter = query.active.toLowerCase(); // Get the active filter value
+
     if (riders) {
-      const filteredRiders = riders.filter((rider) =>
+      let filteredRiders = riders.filter((rider) =>
         rider.name.toLowerCase().includes(searchText)
       );
+
+      // Apply active filter if not set to 'all'
+      if (activeFilter !== 'all') {
+        filteredRiders = filteredRiders.filter((rider) => rider.active.toLowerCase() === activeFilter);
+      }
+
       setState((prevState) => ({
         ...prevState,
         filterRiders: filteredRiders,
       }));
     }
+  };
+
+  const handleActiveFilter = (event) => {
+    const activeFilter = event.target.value;
+    setQuery((prevState) => ({
+      ...prevState,
+      active: activeFilter,
+    }));
   };
 
   const { loading, filterRiders, errorMessage } = state;
@@ -136,6 +156,22 @@ const ListRider = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="row">
+                      <div className="col">
+                        <div className="mb-3">
+                          {/* <select
+                            name="active"
+                            className="form-control"
+                            value={query.active}
+                            onChange={handleActiveFilter}
+                          >
+                            <option value="all">All</option>
+                            <option value="active">Active</option>
+                            <option value="non-active">Non-Active</option>
+                          </select> */}
+                        </div>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -172,8 +208,18 @@ const ListRider = () => {
                                   Email: <span className="fw-bold">{rider.email}</span>
                                 </li>
                                 <li className="list-group-item list-group-item-action">
-                                    Position: <span className="fw-bold">{rider?.Position}</span>
-                                 </li>
+                                  Position: <span className="fw-bold">{rider?.Position}</span>
+                                </li>
+                                {rider.active === 1 && (
+                                  <li className="list-group-item list-group-item-action">
+                                    Status: <span className="fw-bold">Active</span>
+                                  </li>
+                                )}
+                                {rider.active === 0 && (
+                                  <li className="list-group-item list-group-item-action">
+                                    Status: <span className="fw-bold">Non-Active</span>
+                                  </li>
+                                )}
                               </ul>
                             </div>
                             <div className="col-md-1 d-flex flex-column align-items-center">
